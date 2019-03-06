@@ -66,7 +66,7 @@ public class Mini_projet_IHM extends Application {
        promo_fond.setTranslateY(-200);
         
        tabEtu = new TableauEtu(data);
-//        formulaire = new Formulaire(this);
+        formulaire = new Formulaire(this);
         
         
         menu.getChildren().add(mon_menu);
@@ -77,7 +77,7 @@ public class Mini_projet_IHM extends Application {
         mon_menu.ajouter.setOnMousePressed(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent me){
                 reste.getChildren().clear();
-                formulaire= new Formulaire(this);
+                //formulaire= new Formulaire(this);
                 formulaire.setVisible(true);
                 tabEtu.setVisible(false);
                 reste.getChildren().add(formulaire);
@@ -87,7 +87,7 @@ public class Mini_projet_IHM extends Application {
         mon_menu.liste.setOnMousePressed(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent me){
                 reste.getChildren().clear();
-                formulaire=new Formulaire(this);
+                //formulaire=new Formulaire(this);
                 tabEtu.setVisible(true);
                 formulaire.setVisible(false);
                 reste.getChildren().add(tabEtu);
