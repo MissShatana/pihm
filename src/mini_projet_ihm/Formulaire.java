@@ -34,6 +34,7 @@ public class Formulaire extends Parent{
     private DatePicker naissanceField = new DatePicker();
     private ComboBox<String> promoField;
     private Button submitButton;
+    private Button modifButton;
     private GridPane gridPane;
     private Mini_projet_IHM ihm;
     
@@ -212,16 +213,16 @@ public class Formulaire extends Parent{
 
 
         // Add Submit Button
-        submitButton = new Button("Valider");
-        submitButton.setPrefHeight(40);
-        submitButton.setDefaultButton(true);
-        submitButton.setPrefWidth(100);
+        modifButton = new Button("Modifier");
+        modifButton.setPrefHeight(40);
+        modifButton.setDefaultButton(true);
+        modifButton.setPrefWidth(100);
         EcouteurForm e = new EcouteurForm(this,ihm);
-        submitButton.setOnAction(e);
+        modifButton.setOnAction(e);
 
-        gridPane.add(submitButton, 1, 5, 2, 1);
-        GridPane.setHalignment(submitButton, HPos.CENTER);
-        GridPane.setMargin(submitButton, new Insets(20, 0,20,0));
+        gridPane.add(modifButton, 1, 5, 2, 1);
+        GridPane.setHalignment(modifButton, HPos.CENTER);
+        GridPane.setMargin(modifButton, new Insets(20, 0,20,0));
         //addUIControls(gridPane, etudiants, ihm);
         this.getChildren().add(gridPane);
     }
