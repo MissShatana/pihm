@@ -7,12 +7,17 @@ package mini_projet_ihm;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.scene.Parent;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
 
 /**
  *
@@ -43,7 +48,23 @@ public class TableauEtu extends Parent{
         fourthNameCol.setCellValueFactory(new PropertyValueFactory<>("Promo"));
         
         table.getColumns().addAll(firstNameCol, secondNameCol, thirdNameCol, fourthNameCol);
+        
+        //Insert Button
+        TableColumn col_action = new TableColumn<>("Action");
+        table.getColumns().add(col_action);
+       
+        col_action.setCellFactory(
+                new Callback<TableColumn<Etudiant, Boolean>, TableCell<Etudiant, Boolean>>() {
 
+            @Override
+            public TableCell<Etudiant, Boolean> call(TableColumn<Etudiant, Boolean> p) {
+                return new ButtonCell();
+            }
+        
+        });
+        
+        
+        
         //table.setItems(data);
         table.getItems().addAll(data);
         
@@ -56,6 +77,38 @@ public class TableauEtu extends Parent{
     
     public void setTable(Etudiant etu){
         table.getItems().add(etu);
+    }
+    
+
+        
+    //Define the button cell
+    private class ButtonCell extends TableCell<Etudiant, Boolean> {
+        final Button cellButton = new Button("Modifier");
+        
+        private ButtonCell(){
+            
+        	//Action when the button is pressed
+            cellButton.setOnAction(new EventHandler<ActionEvent>(){
+
+                @Override
+                public void handle(ActionEvent t) {
+                    // get Selected Item
+                	Etudiant currentEtu = (Etudiant) ButtonCell.this.getTableView().getItems().get(ButtonCell.this.getIndex());
+                	//remove selected item from the table list
+                	data.remove(currentEtu);
+                        System.out.println(data);
+                }
+            });
+        }
+
+        //Display button if the row is not empty
+        @Override
+        protected void updateItem(Boolean t, boolean empty) {
+            super.updateItem(t, empty);
+            if(!empty){
+                setGraphic(cellButton);
+            }
+        }
     }
 }
 
