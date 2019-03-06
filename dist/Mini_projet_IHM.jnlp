@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Mini_projet_IHM.jnlp">
+  <information>
+    <title>Mini_projet_IHM</title>
+    <vendor>Chacha</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Mini_projet_IHM.jar" size="662724" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Mini_projet_IHM" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="mini_projet_ihm.Mini_projet_IHM"  name="Mini_projet_IHM" />
+  <update check="always"/>
+</jnlp>
