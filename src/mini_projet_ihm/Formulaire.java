@@ -129,7 +129,102 @@ public class Formulaire extends Parent{
         //addUIControls(gridPane, etudiants, ihm);
         this.getChildren().add(gridPane);
     }   
+    
+    public Formulaire(Mini_projet_IHM myIhm, String nomEtu, String prenomEtu, LocalDate naissanceEtu, String promo ){
+        ihm=myIhm;
+        // Instantiate a new Grid Pane
+        gridPane = new GridPane();
 
+        // Position the pane at the center of the screen, both vertically and horizontally
+        gridPane.setAlignment(Pos.CENTER);
+
+        // Set a padding of 20px on each side
+        gridPane.setPadding(new Insets(40, 40, 40, 40));
+
+        // Set the horizontal gap between columns
+        gridPane.setHgap(50);
+
+        // Set the vertical gap between rows
+        gridPane.setVgap(30);
+
+        // Add Column Constraints
+
+        // columnOneConstraints will be applied to all the nodes placed in column one.
+        ColumnConstraints columnOneConstraints = new ColumnConstraints(150, 150, Double.MAX_VALUE);
+        columnOneConstraints.setHalignment(HPos.RIGHT);
+
+        // columnTwoConstraints will be applied to all the nodes placed in column two.
+        ColumnConstraints columnTwoConstrains = new ColumnConstraints(300,300, Double.MAX_VALUE);
+        columnTwoConstrains.setHgrow(Priority.ALWAYS);
+
+        gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
+       
+        // Add Header
+        Label headerLabel = new Label("Formulaire d'ajout d'étudiant");
+        headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        gridPane.add(headerLabel, 0,0,2,1);
+        GridPane.setHalignment(headerLabel, HPos.CENTER);
+        GridPane.setMargin(headerLabel, new Insets(20, 0,20,0));
+
+        // Add Name Label
+        Label nameLabel = new Label("Nom : ");
+        gridPane.add(nameLabel, 0,1);
+
+        // Add Name Text Field
+        nomField.setPrefHeight(40);
+        nomField.setText(nomEtu);
+        gridPane.add(nomField, 1,1);
+
+
+        // Add prenom Label
+        Label prenomLabel = new Label("Prenom : ");
+        gridPane.add(prenomLabel, 0, 2);
+
+        // Add Prenom Text Field
+        
+        prenomField.setPrefHeight(40);
+        prenomField.setText(prenomEtu);
+        gridPane.add(prenomField, 1, 2);
+
+        // Add Naissance Label
+        Label naissanceLabel = new Label("Date de naissance : ");
+        gridPane.add(naissanceLabel, 0, 3);
+
+        // Add Naissance Field
+        naissanceField.setPrefHeight(40);
+        naissanceField.setValue(naissanceEtu);
+        gridPane.add(naissanceField, 1, 3);
+
+        // Add Promo Label
+        Label promoLabel = new Label("Promo : ");
+        gridPane.add(promoLabel, 0, 4);
+
+        //Add Promo Label
+        ObservableList<String> options = 
+        FXCollections.observableArrayList(
+            "L3",
+            "M1",
+            "M2"
+        );
+        promoField = new ComboBox(options);
+        promoField.setPromptText(promo);
+        gridPane.add(promoField, 1, 4);
+
+
+        // Add Submit Button
+        submitButton = new Button("Valider");
+        submitButton.setPrefHeight(40);
+        submitButton.setDefaultButton(true);
+        submitButton.setPrefWidth(100);
+        EcouteurForm e = new EcouteurForm(this,ihm);
+        submitButton.setOnAction(e);
+
+        gridPane.add(submitButton, 1, 5, 2, 1);
+        GridPane.setHalignment(submitButton, HPos.CENTER);
+        GridPane.setMargin(submitButton, new Insets(20, 0,20,0));
+        //addUIControls(gridPane, etudiants, ihm);
+        this.getChildren().add(gridPane);
+    }
     
     public Button getButton(){
         return submitButton;
