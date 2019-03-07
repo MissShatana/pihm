@@ -37,7 +37,7 @@ public class Etudiant {
 //        this.nomEtudiant= new SimpleStringProperty(nomEtu);
 //    }
     
-    public String getprenom(){
+    public String getPrenom(){
         return prenomEtudiant;
     }
     
