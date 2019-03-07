@@ -18,6 +18,8 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -27,8 +29,9 @@ public class TableauEtu extends Parent{
     private final TableView<Etudiant> table = new TableView<>();
     private ObservableList<Etudiant> data =
             FXCollections.observableArrayList();
+    private Formulaire formModif;
     
-    public TableauEtu(ObservableList<Etudiant> myData){
+    public TableauEtu(ObservableList<Etudiant> myData, Formulaire myDormModif){
         data=myData;
         TableColumn<Etudiant, String> firstNameCol = new TableColumn<>("Nom");
         firstNameCol.setMinWidth(100);
@@ -58,7 +61,7 @@ public class TableauEtu extends Parent{
 
             @Override
             public TableCell<Etudiant, Boolean> call(TableColumn<Etudiant, Boolean> p) {
-                return new ButtonCell();
+                return new ButtonCell(table, formModif);
             }
         
         });
@@ -83,23 +86,23 @@ public class TableauEtu extends Parent{
         
     //Define the button cell
     private class ButtonCell extends TableCell<Etudiant, Boolean> {
-        final Button cellButton = new Button("Modifier");
+        final Image img = new Image(TableauEtu.class.getResourceAsStream("images/quitter.jpg"));
+        final ImageView imgv = new ImageView(img);
+        final Button cellButton;
+        final TableView<Etudiant> table;
+        Formulaire formModif;
         
-        private ButtonCell(){
-            
+        private ButtonCell(TableView<Etudiant> myTable, Formulaire myFormModif){
+            imgv.setFitHeight(30);
+            imgv.setFitWidth(30);
+            cellButton = new Button("",imgv);
+            table=myTable;
+            formModif = myFormModif;
         	//Action when the button is pressed
-            cellButton.setOnAction(new EventHandler<ActionEvent>(){
-
-                @Override
-                public void handle(ActionEvent t) {
-                    // get Selected Item
-                	Etudiant currentEtu = (Etudiant) ButtonCell.this.getTableView().getItems().get(ButtonCell.this.getIndex());
-                	//remove selected item from the table list
-                	data.remove(currentEtu);
-                        System.out.println(data);
-                }
-            });
-        }
+            
+            EcouteurModifTable e = new EcouteurModifTable(this,ihm, Etu);
+            cellButton.setOnAction(e);
+            
 
         //Display button if the row is not empty
         @Override
