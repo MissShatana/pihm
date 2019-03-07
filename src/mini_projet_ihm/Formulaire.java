@@ -39,8 +39,7 @@ public class Formulaire extends Parent{
     private Mini_projet_IHM ihm;
     
     
-    public Formulaire(Mini_projet_IHM myIhm ){
-        ihm=myIhm;
+    public Formulaire(){
         // Instantiate a new Grid Pane
         gridPane = new GridPane();
 
@@ -131,8 +130,8 @@ public class Formulaire extends Parent{
         this.getChildren().add(gridPane);
     }   
     
-    public Formulaire(Mini_projet_IHM myIhm, String nomEtu, String prenomEtu, LocalDate naissanceEtu, String promo ){
-        ihm=myIhm;
+    public Formulaire(Etudiant Etu){
+
         // Instantiate a new Grid Pane
         gridPane = new GridPane();
 
@@ -173,7 +172,7 @@ public class Formulaire extends Parent{
 
         // Add Name Text Field
         nomField.setPrefHeight(40);
-        nomField.setText(nomEtu);
+        nomField.setText(Etu.getNom());
         gridPane.add(nomField, 1,1);
 
 
@@ -184,7 +183,7 @@ public class Formulaire extends Parent{
         // Add Prenom Text Field
         
         prenomField.setPrefHeight(40);
-        prenomField.setText(prenomEtu);
+        prenomField.setText(Etu.getPrenom());
         gridPane.add(prenomField, 1, 2);
 
         // Add Naissance Label
@@ -193,7 +192,7 @@ public class Formulaire extends Parent{
 
         // Add Naissance Field
         naissanceField.setPrefHeight(40);
-        naissanceField.setValue(naissanceEtu);
+        naissanceField.setValue(Etu.getNaissance());
         gridPane.add(naissanceField, 1, 3);
 
         // Add Promo Label
@@ -208,7 +207,7 @@ public class Formulaire extends Parent{
             "M2"
         );
         promoField = new ComboBox(options);
-        promoField.setPromptText(promo);
+        promoField.setPromptText(Etu.getPromo());
         gridPane.add(promoField, 1, 4);
 
 
@@ -217,13 +216,12 @@ public class Formulaire extends Parent{
         modifButton.setPrefHeight(40);
         modifButton.setDefaultButton(true);
         modifButton.setPrefWidth(100);
-        EcouteurForm e = new EcouteurForm(this,ihm);
+        EcouteurModif e = new EcouteurModif(this,ihm, Etu);
         modifButton.setOnAction(e);
 
         gridPane.add(modifButton, 1, 5, 2, 1);
         GridPane.setHalignment(modifButton, HPos.CENTER);
         GridPane.setMargin(modifButton, new Insets(20, 0,20,0));
-        //addUIControls(gridPane, etudiants, ihm);
         this.getChildren().add(gridPane);
     }
     
