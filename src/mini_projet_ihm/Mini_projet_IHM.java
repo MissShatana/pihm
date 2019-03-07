@@ -32,6 +32,7 @@ public class Mini_projet_IHM extends Application {
             FXCollections.observableArrayList();
         private Formulaire formulaire;
         private TableauEtu tabEtu;
+        private Formulaire formModif;
     public static void main(String[]args){
         Application.launch(Mini_projet_IHM.class,args);
         
@@ -49,11 +50,13 @@ public class Mini_projet_IHM extends Application {
         Aide mon_aide=new Aide();
         Quitter mon_quitter = new Quitter();
         BorderPane reste = new BorderPane();
-        tabEtu = new TableauEtu(data);
-        formulaire = new Formulaire(this);
+        formulaire = new Formulaire();
+        Etudiant etuTest = new Etudiant("Germain","Natasha", LocalDate.now(),"L3");
+        formModif = new Formulaire(etuTest);
+        formModif.setVisible(false);
+        data.add(etuTest);
         data.add(new Etudiant("Germain","Natasha", LocalDate.now(),"L3"));
-        data.add(new Etudiant("Germain","Natasha", LocalDate.now(),"L3"));
-        
+        tabEtu = new TableauEtu(data, formModif);
         
         
         // ajout d'une image de fond 
@@ -65,8 +68,8 @@ public class Mini_projet_IHM extends Application {
        promo_fond.setTranslateX(260);
        promo_fond.setTranslateY(-200);
         
-       tabEtu = new TableauEtu(data);
-        formulaire = new Formulaire(this);
+//       tabEtu = new TableauEtu(data, formModif);
+//       formulaire = new Formulaire();
         
         
         menu.getChildren().add(mon_menu);
@@ -81,6 +84,7 @@ public class Mini_projet_IHM extends Application {
                 formulaire.setVisible(true);
                 tabEtu.setVisible(false);
                 reste.getChildren().add(formulaire);
+                reste.getChildren().add(tabEtu);
             }
         });
         
