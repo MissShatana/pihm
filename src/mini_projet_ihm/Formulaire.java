@@ -27,21 +27,24 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 /**
- *
- * @author Natashaa
+ * This class builds a form to add or modify a student
+ * @author Natasha Germain
  */
 public class Formulaire extends Parent{
     
-    private TextField prenomField = new TextField();
-    private TextField nomField = new TextField();
-    private DatePicker naissanceField = new DatePicker();
-    private ComboBox<String> promoField;
+    private final TextField prenomField = new TextField();
+    private final TextField nomField = new TextField();
+    private final DatePicker naissanceField = new DatePicker();
+    private final ComboBox<String> promoField;
     private Button submitButton;
     private Button modifButton;
-    private GridPane gridPane;
+    private final GridPane gridPane;
     private Mini_projet_IHM ihm;
     
-    
+    /**
+     * This method builds a form to enter information of a new student
+     * @param myIhm the main class
+     */
     public Formulaire(Mini_projet_IHM myIhm){
         ihm=myIhm;
         // Instantiate a new Grid Pane
@@ -78,29 +81,27 @@ public class Formulaire extends Parent{
         GridPane.setHalignment(headerLabel, HPos.CENTER);
         GridPane.setMargin(headerLabel, new Insets(20, 0,20,0));
 
-        // Add Name Label
+        // Add surname Label
         Label nameLabel = new Label("Nom : ");
         gridPane.add(nameLabel, 0,1);
 
-        // Add Name Text Field
+        // Add surname Text Field
         nomField.setPrefHeight(40);
         gridPane.add(nomField, 1,1);
 
-
-        // Add prenom Label
+        // Add name Label
         Label prenomLabel = new Label("Prenom : ");
         gridPane.add(prenomLabel, 0, 2);
 
-        // Add Prenom Text Field
-        
+        // Add name Text Field
         prenomField.setPrefHeight(40);
         gridPane.add(prenomField, 1, 2);
 
-        // Add Naissance Label
+        // Add Birthday Label
         Label naissanceLabel = new Label("Date de naissance : ");
         gridPane.add(naissanceLabel, 0, 3);
 
-        // Add Naissance Field
+        // Add Birthday Field
         naissanceField.setPrefHeight(40);
         gridPane.add(naissanceField, 1, 3);
 
@@ -127,7 +128,7 @@ public class Formulaire extends Parent{
         EcouteurForm e = new EcouteurForm(this,ihm);
         submitButton.setOnAction(e);
 
-        //Add un fond
+        //Add a background
         Rectangle fond = new Rectangle();
         fond.setHeight(500);
         fond.setWidth(500);
@@ -143,6 +144,11 @@ public class Formulaire extends Parent{
         this.getChildren().add(gridPane);
     }   
     
+    /**
+     * This method builds the form that allow user to modify information of a given student
+     * @param Etu the Student whom we want to modify information
+     * @param table the table where are display student
+     */
     public Formulaire(Etudiant Etu, TableView<Etudiant> table){
         
 
@@ -160,9 +166,7 @@ public class Formulaire extends Parent{
 
         // Set the vertical gap between rows
         gridPane.setVgap(30);
-
-        // Add Column Constraints
-
+        
         // columnOneConstraints will be applied to all the nodes placed in column one.
         ColumnConstraints columnOneConstraints = new ColumnConstraints(150, 150, Double.MAX_VALUE);
         columnOneConstraints.setHalignment(HPos.RIGHT);
@@ -189,22 +193,20 @@ public class Formulaire extends Parent{
         nomField.setText(Etu.getNom());
         gridPane.add(nomField, 1,1);
 
-
-        // Add prenom Label
+        // Add Surname Label
         Label prenomLabel = new Label("Prenom : ");
         gridPane.add(prenomLabel, 0, 2);
 
-        // Add Prenom Text Field
-        
+        // Add Surname Text Field
         prenomField.setPrefHeight(40);
         prenomField.setText(Etu.getPrenom());
         gridPane.add(prenomField, 1, 2);
 
-        // Add Naissance Label
+        // Add birthday Label
         Label naissanceLabel = new Label("Date de naissance : ");
         gridPane.add(naissanceLabel, 0, 3);
 
-        // Add Naissance Field
+        // Add birthday field
         naissanceField.setPrefHeight(40);
         naissanceField.setValue(Etu.getNaissance());
         gridPane.add(naissanceField, 1, 3);
@@ -221,11 +223,10 @@ public class Formulaire extends Parent{
             "M2"
         );
         promoField = new ComboBox(options);
-        promoField.setPromptText(Etu.getPromo());
+        promoField.getSelectionModel().select(Etu.getPromo());
         gridPane.add(promoField, 1, 4);
 
-
-        // Add Submit Button
+        // Add Modify Button
         modifButton = new Button("Modifier");
         modifButton.setPrefHeight(40);
         modifButton.setDefaultButton(true);
@@ -233,7 +234,7 @@ public class Formulaire extends Parent{
         EcouteurModif e = new EcouteurModif(this,table,Etu);
         modifButton.setOnAction(e);
         
-        //Add un fond
+        //Add a background
         Rectangle fond = new Rectangle();
         fond.setHeight(500);
         fond.setWidth(500);
@@ -257,13 +258,19 @@ public class Formulaire extends Parent{
         return nomField.getText();
     }
     
-    
     public String getPrenom(){
         return prenomField.getText();
     }
     
     public LocalDate getNaissance(){
         return naissanceField.getValue();
+    }
+    
+    public void setField(){
+        promoField.getSelectionModel().clearSelection();
+        nomField.clear();
+        prenomField.clear();
+        naissanceField.setPromptText(" ");
     }
     
     public String getPromo(){
@@ -273,6 +280,4 @@ public class Formulaire extends Parent{
     public GridPane getPane(){
         return gridPane;
     }
-    
-    
 }
