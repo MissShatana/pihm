@@ -42,7 +42,7 @@ public class Quitter extends Parent{
         
         this.getChildren().addAll(confirmation,boutons);
         this.setTranslateX(170);
-        this.setTranslateY(300);
+        this.setTranslateY(100);
         
 //         valider.setOnMousePressed(new EventHandler<MouseEvent>(){
 //            public void handle(MouseEvent me){
