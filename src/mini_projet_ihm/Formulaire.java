@@ -160,7 +160,7 @@ public class Formulaire extends Parent{
         gridPane.getColumnConstraints().addAll(columnOneConstraints, columnTwoConstrains);
        
         // Add Header
-        Label headerLabel = new Label("Formulaire d'ajout d'étudiant");
+        Label headerLabel = new Label("Formulaire de modification");
         headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         gridPane.add(headerLabel, 0,0,2,1);
         GridPane.setHalignment(headerLabel, HPos.CENTER);
@@ -216,7 +216,7 @@ public class Formulaire extends Parent{
         modifButton.setPrefHeight(40);
         modifButton.setDefaultButton(true);
         modifButton.setPrefWidth(100);
-        EcouteurModif e = new EcouteurModif(this,ihm, Etu);
+        EcouteurModif e = new EcouteurModif(this,ihm);
         modifButton.setOnAction(e);
 
         gridPane.add(modifButton, 1, 5, 2, 1);

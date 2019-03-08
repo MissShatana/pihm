@@ -41,6 +41,10 @@ public class Etudiant {
         return prenomEtudiant;
     }
     
+    public void setNom(String nomEtu){
+        nomEtudiant=nomEtu;
+    }
+    
     public void setPrenom(String prenomEtu){
         prenomEtudiant=prenomEtu;
     }

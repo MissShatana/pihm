@@ -24,15 +24,10 @@ public class EcouteurModif implements EventHandler {
     private Mini_projet_IHM ihm;
     private Etudiant Etu;
     
-    public EcouteurModif(Formulaire myForm, Mini_projet_IHM myIhm, Etudiant myEtu)
+    public EcouteurModif(Formulaire myForm, Mini_projet_IHM myIhm)
     {
         form=myForm;
         ihm=myIhm;
-        Etu = myEtu;
-    }
-
-    EcouteurModif(Menu_Items ajouter, Mini_projet_IHM ihm) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 
@@ -52,15 +47,15 @@ public class EcouteurModif implements EventHandler {
             return;
         }
         if(form.getPrenom().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please enter your email id");
+            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please enter your prenom");
             return;
         }
         if(form.getNaissance()==null) {
-            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please enter a password");
+            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please enter a naissance");
             return;
         }
         if(form.getPromo()==null) {
-            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please enter a password");
+            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please enter a promo");
             return;
         }
 
@@ -70,6 +65,8 @@ public class EcouteurModif implements EventHandler {
 //        listEtu.add(etu);
         
         Etu.setPrenom(form.getPrenom());
+        Etu.setNom(form.getName());
+        Etu.setPromo(form.getPromo());
         
 //        System.out.println(listEtu);
 //        System.out.println(ihm.getEtu().size());

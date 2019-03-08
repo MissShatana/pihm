@@ -123,6 +123,13 @@ public class Mini_projet_IHM extends Application {
                  reste.getChildren().remove(mon_quitter);
              }
          });
+        
+//        tabEtu.modifier.setOnMousePressed(new EventHandler<MouseEvent>(){
+//             public void handle(MouseEvent me){
+//                 reste.getChildren().remove(mon_quitter);
+//             }
+//         });
+//        
         primaryStage.setScene(scene);
         primaryStage.show();
     }

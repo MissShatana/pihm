@@ -21,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 
 /**
  *
@@ -32,6 +33,7 @@ public class TableauEtu extends Parent{
             FXCollections.observableArrayList();
     private Formulaire formModif;
     private ButtonCell cellButton;
+    private BorderPane bp = new BorderPane();
     
     public TableauEtu(ObservableList<Etudiant> myData, Formulaire myDormModif){
         data=myData;
@@ -87,11 +89,15 @@ public class TableauEtu extends Parent{
         
         //table.setItems(data);
         table.getItems().addAll(data);
-        addButtonToTable();
         
         VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
+        
+        addModifToTable(this, bp);
+        addButtonToTable();
+        
+        
         vbox.getChildren().add(table);
         this.getChildren().add(vbox);
     }
@@ -133,29 +139,28 @@ public class TableauEtu extends Parent{
 //    }
         private void addButtonToTable() {
         TableColumn<Etudiant, String> sixthNameCol = new TableColumn("Supprimer");
-        final Image image = new Image(TableauEtu.class.getResourceAsStream("images/trash.png"));
+        final Image image = new Image(TableauEtu.class.getResourceAsStream("quitter.jpg"));
         final ImageView poubelle = new ImageView(image);
         poubelle.setFitWidth(30);
         poubelle.setFitHeight(30);
         
 
-        Callback<TableColumn<Etudiant, String>, TableCell<Etudiant, String>> cellFactory = new Callback<TableColumn<Etudiant, String>, TableCell<Etudiant, String>>() {
+        Callback<TableColumn<Etudiant, String>, TableCell<Etudiant, String>> cellFactory;
+        cellFactory = new Callback<TableColumn<Etudiant, String>, TableCell<Etudiant, String>>() {
             @Override
             public TableCell<Etudiant, String> call(final TableColumn<Etudiant, String> param) {
                 final TableCell<Etudiant, String> cell = new TableCell<Etudiant, String>() {
-                       private Button supprimer = new Button("Supprimer",poubelle);
-                       private Button modifier = new Button ("Modifier");
+                    private Button supprimer = new Button("Supprimer",poubelle);
                     {
                         supprimer.setOnMousePressed(new EventHandler<MouseEvent>(){
-                                public void handle(MouseEvent me){
-                                    Etudiant data = getTableView().getItems().get(getIndex()); 
-                                    table.getItems().remove(data);
-
+                            public void handle(MouseEvent me){
+                                Etudiant data = getTableView().getItems().get(getIndex());
+                                table.getItems().remove(data);
+                                
 //                
+                            }
+                        });
                     }
-                });
-                    }
-              
 
                     public void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);
@@ -173,6 +178,53 @@ public class TableauEtu extends Parent{
         sixthNameCol.setCellFactory(cellFactory);
 
         table.getColumns().add(sixthNameCol);
+
+    }
+    private void addModifToTable(TableauEtu tabEtu, BorderPane bp) {
+        TableauEtu tabEtus = tabEtu;
+        TableColumn<Etudiant, String> fifthNameCol = new TableColumn("Supprimer");
+        final Image image = new Image(TableauEtu.class.getResourceAsStream("quitter.jpg"));
+        final ImageView poubelle = new ImageView(image);
+        poubelle.setFitWidth(30);
+        poubelle.setFitHeight(30);
+        
+
+        Callback<TableColumn<Etudiant, String>, TableCell<Etudiant, String>> cellFactory;
+        cellFactory = new Callback<TableColumn<Etudiant, String>, TableCell<Etudiant, String>>() {
+            @Override
+            public TableCell<Etudiant, String> call(final TableColumn<Etudiant, String> param) {
+                final TableCell<Etudiant, String> cell = new TableCell<Etudiant, String>() {
+                    private Button modifier = new Button ("Modifier");
+                    {
+                        modifier.setOnMousePressed(new EventHandler<MouseEvent>(){
+                            public void handle(MouseEvent me){
+                                Etudiant currentEtu = (Etudiant) getTableView().getItems().get(getIndex());
+                                tabEtus.getChildren().clear();
+                                Formulaire formulaire = new Formulaire(currentEtu);
+                                data.remove(currentEtu);
+                                tabEtu.getChildren().clear();
+                                tabEtu.getChildren().add(formulaire);
+//                
+                            }
+                        });
+                    }
+
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(modifier);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        fifthNameCol.setCellFactory(cellFactory);
+
+        table.getColumns().add(fifthNameCol);
 
     }
     

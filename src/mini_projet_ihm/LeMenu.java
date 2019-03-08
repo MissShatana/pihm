@@ -40,7 +40,7 @@ public class LeMenu extends Parent{
     ajouter = new Menu_Items("Ajouter un étudiant",0,20,"images/croix.png");
     liste = new Menu_Items("Liste des étudiants",0,80,"images/liste.png");
     aide =  new Menu_Items("Aide",0,140,"images/aide.png");
-    quitter = new Menu_Items("Quitter",0,200,"images/quit.png");
+    quitter = new Menu_Items("Quitter",0,200,"quitter.jpg");
     
     this.getChildren().addAll(ajouter,liste,aide,quitter);
     Image gphy = new Image(LeMenu.class.getResourceAsStream("images/gphy.jpg"));
