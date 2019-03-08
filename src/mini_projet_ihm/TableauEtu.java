@@ -20,6 +20,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 /**
  *
@@ -52,24 +53,25 @@ public class TableauEtu extends Parent{
         
         table.getColumns().addAll(firstNameCol, secondNameCol, thirdNameCol, fourthNameCol);
         
-        //Insert Button
-        TableColumn col_action = new TableColumn<>("Action");
-        table.getColumns().add(col_action);
-       
-        col_action.setCellFactory(
-                new Callback<TableColumn<Etudiant, Boolean>, TableCell<Etudiant, Boolean>>() {
-
-            @Override
-            public TableCell<Etudiant, Boolean> call(TableColumn<Etudiant, Boolean> p) {
-                return new ButtonCell(table, formModif);
-            }
-        
-        });
+//        //Insert Button
+//        TableColumn col_action = new TableColumn<>("Action");
+//        table.getColumns().add(col_action);
+//       
+//        col_action.setCellFactory(
+//                new Callback<TableColumn<Etudiant, Boolean>, TableCell<Etudiant, Boolean>>() {
+//
+//            @Override
+//            public TableCell<Etudiant, Boolean> call(TableColumn<Etudiant, Boolean> p) {
+//                return new ButtonCell(table, formModif);
+//            }
+//        
+//        });
         
         
         
         //table.setItems(data);
         table.getItems().addAll(data);
+        addButtonToTable();
         
         VBox vbox = new VBox();
         vbox.setSpacing(5);
@@ -84,34 +86,76 @@ public class TableauEtu extends Parent{
     
 
         
-    //Define the button cell
-    private class ButtonCell extends TableCell<Etudiant, Boolean> {
-        final Image img = new Image(TableauEtu.class.getResourceAsStream("images/quitter.jpg"));
-        final ImageView imgv = new ImageView(img);
-        final Button cellButton;
-        final TableView<Etudiant> table;
-        Formulaire formModif;
+//    //Define the button cell
+//    private class ButtonCell extends TableCell<Etudiant, Boolean> {
+//        final Image img = new Image(TableauEtu.class.getResourceAsStream("images/quitter.jpg"));
+//        final ImageView imgv = new ImageView(img);
+//        final Button cellButton;
+//        final TableView<Etudiant> table;
+//        Formulaire formModif;
+//        
+//        private ButtonCell(TableView<Etudiant> myTable, Formulaire myFormModif){
+//            imgv.setFitHeight(30);
+//            imgv.setFitWidth(30);
+//            cellButton = new Button("",imgv);
+//            table=myTable;
+//            formModif = myFormModif;
+//        	//Action when the button is pressed
+//            
+//            EcouteurModifTable e = new EcouteurModifTable(this,ihm, Etu);
+//            cellButton.setOnAction(e);
+//            
+//
+//        //Display button if the row is not empty
+//        @Override
+//        protected void updateItem(Boolean t, boolean empty) {
+//            super.updateItem(t, empty);
+//            if(!empty){
+//                setGraphic(cellButton);
+//            }
+//        }
+//    }
+        private void addButtonToTable() {
+        TableColumn<Etudiant, String> sixthNameCol = new TableColumn("Supprimer");
+        final Image image = new Image(TableauEtu.class.getResourceAsStream("images/trash.png"));
+        final ImageView poubelle = new ImageView(image);
+        poubelle.setFitWidth(30);
+        poubelle.setFitHeight(30);
         
-        private ButtonCell(TableView<Etudiant> myTable, Formulaire myFormModif){
-            imgv.setFitHeight(30);
-            imgv.setFitWidth(30);
-            cellButton = new Button("",imgv);
-            table=myTable;
-            formModif = myFormModif;
-        	//Action when the button is pressed
-            
-            EcouteurModifTable e = new EcouteurModifTable(this,ihm, Etu);
-            cellButton.setOnAction(e);
-            
 
-        //Display button if the row is not empty
-        @Override
-        protected void updateItem(Boolean t, boolean empty) {
-            super.updateItem(t, empty);
-            if(!empty){
-                setGraphic(cellButton);
+        Callback<TableColumn<Etudiant, String>, TableCell<Etudiant, String>> cellFactory = new Callback<TableColumn<Etudiant, String>, TableCell<Etudiant, String>>() {
+            @Override
+            public TableCell<Etudiant, String> call(final TableColumn<Etudiant, String> param) {
+                final TableCell<Etudiant, String> cell = new TableCell<Etudiant, String>() {
+                       private Button supprimer = new Button("Supprimer",poubelle);
+                    {
+                        supprimer.setOnMousePressed(new EventHandler<MouseEvent>(){
+                                public void handle(MouseEvent me){
+                                    Etudiant data = getTableView().getItems().get(getIndex()); 
+                                    table.getItems().remove(data);
+
+//                
+                    }
+                });
+                    }
+
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(supprimer);
+                        }
+                    }
+                };
+                return cell;
             }
-        }
+        };
+
+        sixthNameCol.setCellFactory(cellFactory);
+
+        table.getColumns().add(sixthNameCol);
+
     }
 }
 

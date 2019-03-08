@@ -54,11 +54,11 @@ public class EcouteurForm implements EventHandler {
             return;
         }
         if(form.getNaissance()==null) {
-            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please enter a password");
+            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please enter a birthday");
             return;
         }
         if(form.getPromo()==null) {
-            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please enter a password");
+            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please choose a promo option");
             return;
         }
 
