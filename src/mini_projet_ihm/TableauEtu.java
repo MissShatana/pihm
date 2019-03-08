@@ -62,13 +62,14 @@ public class TableauEtu extends Parent{
         VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
-        
+       
         addModifToTable(this, bp, ihm, table);
         addButtonToTable();
         
         
         vbox.getChildren().add(table);
         this.getChildren().add(vbox);
+        
     }
     
     public void setTable(Etudiant etu){
@@ -119,7 +120,7 @@ public class TableauEtu extends Parent{
             @Override
             public TableCell<Etudiant, String> call(final TableColumn<Etudiant, String> param) {
                 final TableCell<Etudiant, String> cell = new TableCell<Etudiant, String>() {
-                    private Button supprimer = new Button("Supprimer",poubelle);
+                    private Button supprimer = new Button("Supprimer");
                     {
                         supprimer.setOnMousePressed(new EventHandler<MouseEvent>(){
                             public void handle(MouseEvent me){
@@ -145,6 +146,7 @@ public class TableauEtu extends Parent{
         };
 
         sixthNameCol.setCellFactory(cellFactory);
+        sixthNameCol.setMinWidth(100);
 
         table.getColumns().add(sixthNameCol);
 
@@ -190,6 +192,7 @@ public class TableauEtu extends Parent{
         };
 
         fifthNameCol.setCellFactory(cellFactory);
+        fifthNameCol.setMinWidth(100);
 
         table.getColumns().add(fifthNameCol);
 
