@@ -54,31 +54,31 @@ public class TableauEtu extends Parent{
         
         table.getColumns().addAll(firstNameCol, secondNameCol, thirdNameCol, fourthNameCol);
         
-        //Insert Button
-        TableColumn col_action = new TableColumn<>("Action");
-        table.getColumns().add(col_action);
-       
-        col_action.setCellFactory(
-                new Callback<TableColumn<Etudiant, Boolean>, TableCell<Etudiant, Boolean>>() {
-
-            @Override
-            public TableCell<Etudiant, Boolean> call(TableColumn<Etudiant, Boolean> p) {
-                cellButton = new ButtonCell();
-                
-                cellButton.setOnMousePressed(new EventHandler<MouseEvent>(){
-                public void handle(MouseEvent me){
-                    Etudiant data = getTableView().getItems().get(getIndex);
-            }
-            });
-                
-            public void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if(!empty){
-                    setGraphic(cellButton);
-                }
-            }
-            }
-        });
+//        //Insert Button
+//        TableColumn col_action = new TableColumn<>("Action");
+//        table.getColumns().add(col_action);
+//       
+//        col_action.setCellFactory(
+//                new Callback<TableColumn<Etudiant, Boolean>, TableCell<Etudiant, Boolean>>() {
+//
+//            @Override
+//            public TableCell<Etudiant, Boolean> call(TableColumn<Etudiant, Boolean> p) {
+//                cellButton = new ButtonCell();
+//                
+//                cellButton.setOnMousePressed(new EventHandler<MouseEvent>(){
+//                public void handle(MouseEvent me){
+//                    Etudiant data = getTableView().getItems().get(getIndex);
+//            }
+//            });
+//                
+//            public void updateItem(String item, boolean empty) {
+//                super.updateItem(item, empty);
+//                if(!empty){
+//                    setGraphic(cellButton);
+//                }
+//            }
+//            }
+//        });
         
         
                 
@@ -144,6 +144,7 @@ public class TableauEtu extends Parent{
             public TableCell<Etudiant, String> call(final TableColumn<Etudiant, String> param) {
                 final TableCell<Etudiant, String> cell = new TableCell<Etudiant, String>() {
                        private Button supprimer = new Button("Supprimer",poubelle);
+                       private Button modifier = new Button ("Modifier");
                     {
                         supprimer.setOnMousePressed(new EventHandler<MouseEvent>(){
                                 public void handle(MouseEvent me){
@@ -154,6 +155,7 @@ public class TableauEtu extends Parent{
                     }
                 });
                     }
+              
 
                     public void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);

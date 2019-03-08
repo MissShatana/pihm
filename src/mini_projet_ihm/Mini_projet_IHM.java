@@ -58,7 +58,6 @@ public class Mini_projet_IHM extends Application {
         data.add(new Etudiant("Germain","Natasha", LocalDate.now(),"L3"));
         tabEtu = new TableauEtu(data, formModif);
         
-        tabEtu.table.cellButton.
         
         // ajout d'une image de fond 
        Image promo = new Image(Mini_projet_IHM.class.getResourceAsStream("images/photo_promo.jpg"));
