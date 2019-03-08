@@ -232,6 +232,16 @@ public class Formulaire extends Parent{
         modifButton.setPrefWidth(100);
         EcouteurModif e = new EcouteurModif(this,table,Etu);
         modifButton.setOnAction(e);
+        
+        //Add un fond
+        Rectangle fond = new Rectangle();
+        fond.setHeight(500);
+        fond.setWidth(500);
+        fond.setFill(Color.BLANCHEDALMOND);
+        this.getChildren().add(fond);
+        fond.setTranslateX(50);
+        fond.setTranslateY(30);
+        fond.setStroke(Color.BLACK);
 
         gridPane.add(modifButton, 1, 5, 2, 1);
         GridPane.setHalignment(modifButton, HPos.CENTER);
