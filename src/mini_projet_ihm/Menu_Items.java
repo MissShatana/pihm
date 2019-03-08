@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mini_projet_ihm;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
@@ -72,16 +67,12 @@ public class Menu_Items extends Parent{
         this.setTranslateY(positionY);
         
         // add an event : if the mouse enter on the button it will change its color to notify this mouse position 
-        this.setOnMouseEntered(new EventHandler<MouseEvent>(){
-            public void handle(MouseEvent me){
-                fond_item.setFill(Color.AQUA);
-            }
+        this.setOnMouseEntered((MouseEvent me) -> {
+            fond_item.setFill(Color.AQUA);
         });
         // another event that show the mouse exit by taking back the first blue color
-        this.setOnMouseExited(new EventHandler<MouseEvent>(){
-            public void handle(MouseEvent me){
-                fond_item.setFill(Color.DODGERBLUE);
-            }
+        this.setOnMouseExited((MouseEvent me) -> {
+            fond_item.setFill(Color.DODGERBLUE);
         });     
     }
 }
