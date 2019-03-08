@@ -1,39 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mini_projet_ihm;
 
-import java.util.ArrayList;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
-
-import javafx.scene.Parent;
+import java.time.LocalDate;
 
 /**
- *
- * @author Natashaa
+ * This class listens the Validate button of the form to add a student
+ * @author Natasha
  */
 public class EcouteurForm implements EventHandler {
-    private ArrayList<Etudiant> listEtu = new ArrayList<Etudiant>();
-    private Formulaire form;
-    private Mini_projet_IHM ihm;
+    private final Formulaire form;
+    private final Mini_projet_IHM ihm;
     
+    /**
+     * This method builds the listener of the form to add a student
+     * @param myForm the form completed
+     * @param myIhm the main class
+     */
     public EcouteurForm(Formulaire myForm, Mini_projet_IHM myIhm)
     {
         form=myForm;
         ihm=myIhm;
     }
-
-    EcouteurForm(Menu_Items ajouter, Mini_projet_IHM ihm) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
-
+    /**
+     * This method show a message depending of how the form is complete
+     * @param alertType
+     * @param owner
+     * @param title
+     * @param message 
+     */
     private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
     Alert alert = new Alert(alertType);
     alert.setTitle(title);
@@ -42,7 +41,11 @@ public class EcouteurForm implements EventHandler {
     alert.initOwner(owner);
     alert.show();
     }
-
+    
+    /**
+     * This class allow the button to add the student to the table
+     * @param event 
+     */
     @Override
     public void handle(Event event) {
         if(form.getName().isEmpty()) {
@@ -61,16 +64,14 @@ public class EcouteurForm implements EventHandler {
             showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please choose a promo option");
             return;
         }
+        if(form.getNaissance().isBefore(LocalDate.now())==false) {
+            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Erreur !","S'il vous plait entrer une date avant aujourd'hui");
+            return;
+        }
 
         form.setVisible(false);
-        //ajouter etu à la liste
-//        ihm.getEtu().add(etu);
-//        listEtu.add(etu);
         ihm.setEtu(new Etudiant(form.getName(), form.getPrenom(), form.getNaissance(), form.getPromo()));
         form.setField();
-//        System.out.println(listEtu);
-//        System.out.println(ihm.getEtu().size());
-        
         showAlert(Alert.AlertType.CONFIRMATION, form.getPane().getScene().getWindow(), "Registration Successful!", "Welcome " + form.getName());
 
     }
