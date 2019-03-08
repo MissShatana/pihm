@@ -270,7 +270,7 @@ public class Formulaire extends Parent{
         promoField.getSelectionModel().clearSelection();
         nomField.clear();
         prenomField.clear();
-        naissanceField.setPromptText(" ");
+        naissanceField.getEditor().clear();
     }
     
     public String getPromo(){
