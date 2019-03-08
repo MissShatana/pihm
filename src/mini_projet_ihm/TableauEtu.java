@@ -20,6 +20,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 /**
  *
@@ -30,6 +31,7 @@ public class TableauEtu extends Parent{
     private ObservableList<Etudiant> data =
             FXCollections.observableArrayList();
     private Formulaire formModif;
+    private ButtonCell cellButton;
     
     public TableauEtu(ObservableList<Etudiant> myData, Formulaire myDormModif){
         data=myData;
@@ -61,10 +63,25 @@ public class TableauEtu extends Parent{
 
             @Override
             public TableCell<Etudiant, Boolean> call(TableColumn<Etudiant, Boolean> p) {
-                return new ButtonCell(table, formModif);
+                cellButton = new ButtonCell();
+                
+                cellButton.setOnMousePressed(new EventHandler<MouseEvent>(){
+                public void handle(MouseEvent me){
+                    Etudiant data = getTableView().getItems().get(getIndex);
             }
-        
+            });
+                
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if(!empty){
+                    setGraphic(cellButton);
+                }
+            }
+            }
         });
+        
+        
+                
         
         
         
@@ -84,34 +101,6 @@ public class TableauEtu extends Parent{
     
 
         
-    //Define the button cell
-    private class ButtonCell extends TableCell<Etudiant, Boolean> {
-        final Image img = new Image(TableauEtu.class.getResourceAsStream("images/quitter.jpg"));
-        final ImageView imgv = new ImageView(img);
-        final Button cellButton;
-        final TableView<Etudiant> table;
-        Formulaire formModif;
-        
-        private ButtonCell(TableView<Etudiant> myTable, Formulaire myFormModif){
-            imgv.setFitHeight(30);
-            imgv.setFitWidth(30);
-            cellButton = new Button("",imgv);
-            table=myTable;
-            formModif = myFormModif;
-        	//Action when the button is pressed
-            
-            EcouteurModifTable e = new EcouteurModifTable(this,ihm, Etu);
-            cellButton.setOnAction(e);
-            
-
-        //Display button if the row is not empty
-        @Override
-        protected void updateItem(Boolean t, boolean empty) {
-            super.updateItem(t, empty);
-            if(!empty){
-                setGraphic(cellButton);
-            }
-        }
-    }
+    
 }
 
