@@ -6,7 +6,6 @@
 package mini_projet_ihm;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,12 +13,14 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
@@ -50,6 +51,11 @@ public class Mini_projet_IHM extends Application {
         LeMenu mon_menu= new LeMenu();
         Aide mon_aide=new Aide();
         Quitter mon_quitter = new Quitter();
+        Label bienvenue = new Label("Bienvenue dans votre gestionnaire \n                   d'étudiants");
+        bienvenue.setFont(Font.font("Arial",FontWeight.BOLD, 80));
+        bienvenue.setTranslateX(400);
+        bienvenue.setTranslateY(150);
+        reste.getChildren().add(bienvenue);
         
         formulaire = new Formulaire(this);
         Etudiant etuTest = new Etudiant("Germain","Natasha", LocalDate.now(),"L3");
@@ -68,19 +74,18 @@ public class Mini_projet_IHM extends Application {
        promo_fond.setFitWidth(1700);
        promo_fond.setTranslateX(260);
        promo_fond.setTranslateY(-200);
-        
-//       tabEtu = new TableauEtu(data, formModif);
-//       formulaire = new Formulaire();
-        
-        
+
         menu.getChildren().add(mon_menu);
-        root.getChildren().addAll(menu,promo_fond,reste);
+        
+        root.getChildren().addAll(menu,promo_fond,reste,bienvenue);
         reste.setTranslateX(700);
         reste.setAlignment(reste,Pos.CENTER);
+        
         
         mon_menu.ajouter.setOnMousePressed(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent me){
                 reste.getChildren().clear();
+                root.getChildren().remove(bienvenue);
                 //formulaire= new Formulaire(this);
                 formulaire.setVisible(true);
                 tabEtu.setVisible(false);
@@ -92,6 +97,7 @@ public class Mini_projet_IHM extends Application {
         mon_menu.liste.setOnMousePressed(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent me){
                 reste.getChildren().clear();
+                root.getChildren().remove(bienvenue);
                 //formulaire=new Formulaire(this);
                 tabEtu.setVisible(true);
                 formulaire.setVisible(false);
@@ -104,12 +110,14 @@ public class Mini_projet_IHM extends Application {
         mon_menu.aide.setOnMousePressed(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent me){
                     reste.getChildren().clear();
+                    root.getChildren().remove(bienvenue);
                     reste.getChildren().add(mon_aide);
             }
         });
          mon_menu.quitter.setOnMousePressed(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent me){
                 reste.getChildren().clear();
+                root.getChildren().remove(bienvenue);
                 reste.getChildren().add(mon_quitter);
             }
         });
@@ -126,12 +134,7 @@ public class Mini_projet_IHM extends Application {
              }
          });
         
-//        tabEtu.modifier.setOnMousePressed(new EventHandler<MouseEvent>(){
-//             public void handle(MouseEvent me){
-//                 reste.getChildren().remove(mon_quitter);
-//             }
-//         });
-//        
+
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -142,10 +145,7 @@ public class Mini_projet_IHM extends Application {
      public ObservableList<Etudiant> getEtu(){
         return data;
     }
-//     
-//     public void setVisiTabEtu(){
-//         reste.getChildren().add(tabEtu);
-//     }
+
 }
 
    
