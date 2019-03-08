@@ -24,10 +24,11 @@ public class EcouteurModif implements EventHandler {
     private Mini_projet_IHM ihm;
     private Etudiant Etu;
     
-    public EcouteurModif(Formulaire myForm, Mini_projet_IHM myIhm)
+    public EcouteurModif(Formulaire myForm, Mini_projet_IHM myIhm, Etudiant myEtu)
     {
         form=myForm;
         ihm=myIhm;
+        Etu = myEtu;
     }
     
 

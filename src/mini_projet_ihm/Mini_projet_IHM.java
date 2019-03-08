@@ -50,9 +50,9 @@ public class Mini_projet_IHM extends Application {
         Aide mon_aide=new Aide();
         Quitter mon_quitter = new Quitter();
         BorderPane reste = new BorderPane();
-        formulaire = new Formulaire();
+        formulaire = new Formulaire(this);
         Etudiant etuTest = new Etudiant("Germain","Natasha", LocalDate.now(),"L3");
-        formModif = new Formulaire(etuTest);
+        formModif = new Formulaire(etuTest, this);
         formModif.setVisible(false);
         data.add(etuTest);
         data.add(new Etudiant("Germain","Natasha", LocalDate.now(),"L3"));

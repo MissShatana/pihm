@@ -39,7 +39,8 @@ public class Formulaire extends Parent{
     private Mini_projet_IHM ihm;
     
     
-    public Formulaire(){
+    public Formulaire(Mini_projet_IHM myIhm){
+        ihm=myIhm;
         // Instantiate a new Grid Pane
         gridPane = new GridPane();
 
@@ -126,11 +127,11 @@ public class Formulaire extends Parent{
         gridPane.add(submitButton, 1, 5, 2, 1);
         GridPane.setHalignment(submitButton, HPos.CENTER);
         GridPane.setMargin(submitButton, new Insets(20, 0,20,0));
-        //addUIControls(gridPane, etudiants, ihm);
         this.getChildren().add(gridPane);
     }   
     
-    public Formulaire(Etudiant Etu){
+    public Formulaire(Etudiant Etu,Mini_projet_IHM myIhm){
+        ihm=myIhm;
 
         // Instantiate a new Grid Pane
         gridPane = new GridPane();
@@ -216,7 +217,7 @@ public class Formulaire extends Parent{
         modifButton.setPrefHeight(40);
         modifButton.setDefaultButton(true);
         modifButton.setPrefWidth(100);
-        EcouteurModif e = new EcouteurModif(this,ihm);
+        EcouteurModif e = new EcouteurModif(this,ihm,Etu);
         modifButton.setOnAction(e);
 
         gridPane.add(modifButton, 1, 5, 2, 1);
