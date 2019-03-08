@@ -49,19 +49,19 @@ public class EcouteurForm implements EventHandler {
     @Override
     public void handle(Event event) {
         if(form.getName().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please enter your name");
+            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Erreur!", "Entrez un nom");
             return;
         }
         if(form.getPrenom().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please enter your email id");
+            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Erreur!", "Entrez un prénom");
             return;
         }
         if(form.getNaissance()==null) {
-            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please enter a birthday");
+            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Erreur!", "Entrez une date de naissance");
             return;
         }
         if(form.getPromo()==null) {
-            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please choose a promo option");
+            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Erreur!", "Entrez une promo");
             return;
         }
         if(form.getNaissance().isBefore(LocalDate.now())==false) {

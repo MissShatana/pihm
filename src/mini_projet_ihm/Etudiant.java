@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 /**
  *The class builds a student
- * @author Natashaa
+ * @author Natasha Germain
  */
 public class Etudiant {
     private String nomEtudiant;
