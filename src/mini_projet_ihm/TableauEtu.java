@@ -7,8 +7,6 @@ package mini_projet_ihm;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -18,23 +16,26 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 /**
- *
- * @author Natashaa
+ *This class build the table that shows the list of student
+ * @author Natasha Germain & Charlotte Fievet
  */
 public class TableauEtu extends Parent{
     private final TableView<Etudiant> table = new TableView<>();
     private ObservableList<Etudiant> data =
             FXCollections.observableArrayList();
-    private Mini_projet_IHM ihm;
-    private BorderPane bp = new BorderPane();
+    private final Mini_projet_IHM ihm;
     
-    public TableauEtu(ObservableList<Etudiant> myData, Formulaire myDormModif, Mini_projet_IHM myIhm){
+    /**
+     * This method builds a table that displays student list.
+     * @param myData the list of student
+     * @param myFormModif the modification form
+     * @param myIhm the main class
+     */
+    public TableauEtu(ObservableList<Etudiant> myData, Formulaire myFormModif, Mini_projet_IHM myIhm){
         data=myData;
         ihm=myIhm;
         TableColumn<Etudiant, String> firstNameCol = new TableColumn<>("Nom");
@@ -63,7 +64,7 @@ public class TableauEtu extends Parent{
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
        
-        addModifToTable(this, bp, ihm, table);
+        addModifToTable(this, table);
         addButtonToTable();
         
         
@@ -75,109 +76,74 @@ public class TableauEtu extends Parent{
     public void setTable(Etudiant etu){
         table.getItems().add(etu);
     }
-    
 
-        
-//    //Define the button cell
-//    private class ButtonCell extends TableCell<Etudiant, Boolean> {
-//        final Image img = new Image(TableauEtu.class.getResourceAsStream("images/quitter.jpg"));
-//        final ImageView imgv = new ImageView(img);
-//        final Button cellButton;
-//        final TableView<Etudiant> table;
-//        Formulaire formModif;
-//        
-//        private ButtonCell(TableView<Etudiant> myTable, Formulaire myFormModif){
-//            imgv.setFitHeight(30);
-//            imgv.setFitWidth(30);
-//            cellButton = new Button("",imgv);
-//            table=myTable;
-//            formModif = myFormModif;
-//        	//Action when the button is pressed
-//            
-//            EcouteurModifTable e = new EcouteurModifTable(this,ihm, Etu);
-//            cellButton.setOnAction(e);
-//            
-//
-//        //Display button if the row is not empty
-//        @Override
-//        protected void updateItem(Boolean t, boolean empty) {
-//            super.updateItem(t, empty);
-//            if(!empty){
-//                setGraphic(cellButton);
-//            }
-//        }
-//    }
-        private void addButtonToTable() {
-        TableColumn<Etudiant, String> sixthNameCol = new TableColumn("Supprimer");
-        final Image image = new Image(TableauEtu.class.getResourceAsStream("quitter.jpg"));
-        final ImageView poubelle = new ImageView(image);
-        poubelle.setFitWidth(30);
-        poubelle.setFitHeight(30);
-        
+    /**
+     * This method add a button supp to the table
+     */
+    private void addButtonToTable() {
+    TableColumn<Etudiant, String> sixthNameCol = new TableColumn("Supprimer");
 
-        Callback<TableColumn<Etudiant, String>, TableCell<Etudiant, String>> cellFactory;
-        cellFactory = new Callback<TableColumn<Etudiant, String>, TableCell<Etudiant, String>>() {
-            @Override
-            public TableCell<Etudiant, String> call(final TableColumn<Etudiant, String> param) {
-                final TableCell<Etudiant, String> cell = new TableCell<Etudiant, String>() {
-                    private Button supprimer = new Button("Supprimer");
-                    {
-                        supprimer.setOnMousePressed(new EventHandler<MouseEvent>(){
-                            public void handle(MouseEvent me){
-                                Etudiant data = getTableView().getItems().get(getIndex());
-                                table.getItems().remove(data);
-                                
-//                
-                            }
-                        });
+    Callback<TableColumn<Etudiant, String>, TableCell<Etudiant, String>> cellFactory;
+    cellFactory = new Callback<TableColumn<Etudiant, String>, TableCell<Etudiant, String>>() {
+        @Override
+        public TableCell<Etudiant, String> call(final TableColumn<Etudiant, String> param) {
+            final TableCell<Etudiant, String> cell = new TableCell<Etudiant, String>() {
+                private final Button supprimer = new Button("Supprimer");
+                {
+                    supprimer.setOnMousePressed((MouseEvent me) -> {
+                        Etudiant data1 = getTableView().getItems().get(getIndex());
+                        table.getItems().remove(data1);
+                    });
+                }
+
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        setGraphic(supprimer);
                     }
+                }
+            };
+            return cell;
+        }
+    };
 
-                    public void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            setGraphic(supprimer);
-                        }
-                    }
-                };
-                return cell;
-            }
-        };
+    sixthNameCol.setCellFactory(cellFactory);
+    sixthNameCol.setMinWidth(100);
 
-        sixthNameCol.setCellFactory(cellFactory);
-        sixthNameCol.setMinWidth(100);
-
-        table.getColumns().add(sixthNameCol);
-
+    table.getColumns().add(sixthNameCol);
     }
-    private void addModifToTable(TableauEtu tabEtu, BorderPane bp, Mini_projet_IHM myIhm, TableView<Etudiant> table) {
+    
+    /**
+     * This method adds a button modify to the table
+     * @param tabEtu the interface table that display the list of etu
+     * @param table the table that saves the student
+     */
+    private void addModifToTable(TableauEtu tabEtu, TableView<Etudiant> table) {
         TableauEtu tabEtus = tabEtu;
         TableColumn<Etudiant, String> fifthNameCol = new TableColumn("Modifier");
         
-
         Callback<TableColumn<Etudiant, String>, TableCell<Etudiant, String>> cellFactory;
         cellFactory = new Callback<TableColumn<Etudiant, String>, TableCell<Etudiant, String>>() {
             @Override
             public TableCell<Etudiant, String> call(final TableColumn<Etudiant, String> param) {
                 final TableCell<Etudiant, String> cell = new TableCell<Etudiant, String>() {
-                    private Button modifier = new Button ("Modifier");
+                    private final Button modifier = new Button ("Modifier");
                     {
-                        modifier.setOnMousePressed(new EventHandler<MouseEvent>(){
-                            public void handle(MouseEvent me){
-                                Etudiant currentEtu = (Etudiant) getTableView().getItems().get(getIndex());
-                                tabEtus.getChildren().clear();
-                                Formulaire formulaire = new Formulaire(currentEtu, table);
-                                data.remove(currentEtu);
-                                tabEtu.getChildren().clear();
-                                tabEtu.getChildren().add(formulaire);
-                                table.setVisible(false);
-                                tabEtu.getChildren().add(table);
-//                
-                            }
+                        modifier.setOnMousePressed((MouseEvent me) -> {
+                            Etudiant currentEtu = (Etudiant) getTableView().getItems().get(getIndex());
+                            tabEtus.getChildren().clear();
+                            Formulaire formulaire = new Formulaire(currentEtu, table);
+                            tabEtu.getChildren().clear();
+                            tabEtu.getChildren().add(formulaire);
+                            table.setVisible(false);
+                            tabEtu.getChildren().add(table);
                         });
                     }
 
+                    @Override
                     public void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);
                         if (empty) {
