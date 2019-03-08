@@ -67,6 +67,7 @@ public class EcouteurForm implements EventHandler {
 //        ihm.getEtu().add(etu);
 //        listEtu.add(etu);
         ihm.setEtu(new Etudiant(form.getName(), form.getPrenom(), form.getNaissance(), form.getPromo()));
+        form.setField();
 //        System.out.println(listEtu);
 //        System.out.println(ihm.getEtu().size());
         
