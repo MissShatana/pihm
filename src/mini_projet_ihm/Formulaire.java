@@ -21,6 +21,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -124,6 +126,16 @@ public class Formulaire extends Parent{
         submitButton.setPrefWidth(100);
         EcouteurForm e = new EcouteurForm(this,ihm);
         submitButton.setOnAction(e);
+
+        //Add un fond
+        Rectangle fond = new Rectangle();
+        fond.setHeight(500);
+        fond.setWidth(500);
+        fond.setFill(Color.BLANCHEDALMOND);
+        this.getChildren().add(fond);
+        fond.setTranslateX(50);
+        fond.setTranslateY(30);
+        fond.setStroke(Color.BLACK);
 
         gridPane.add(submitButton, 1, 5, 2, 1);
         GridPane.setHalignment(submitButton, HPos.CENTER);
