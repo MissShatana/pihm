@@ -33,6 +33,7 @@ public class Mini_projet_IHM extends Application {
         private Formulaire formulaire;
         private TableauEtu tabEtu;
         private Formulaire formModif;
+        private BorderPane reste = new BorderPane();
     public static void main(String[]args){
         Application.launch(Mini_projet_IHM.class,args);
         
@@ -49,14 +50,14 @@ public class Mini_projet_IHM extends Application {
         LeMenu mon_menu= new LeMenu();
         Aide mon_aide=new Aide();
         Quitter mon_quitter = new Quitter();
-        BorderPane reste = new BorderPane();
+        
         formulaire = new Formulaire(this);
         Etudiant etuTest = new Etudiant("Germain","Natasha", LocalDate.now(),"L3");
-        formModif = new Formulaire(etuTest, this);
+        formModif = new Formulaire(etuTest, table);
         formModif.setVisible(false);
         data.add(etuTest);
         data.add(new Etudiant("Germain","Natasha", LocalDate.now(),"L3"));
-        tabEtu = new TableauEtu(data, formModif);
+        tabEtu = new TableauEtu(data, formModif, this);
         
         
         // ajout d'une image de fond 
@@ -95,6 +96,7 @@ public class Mini_projet_IHM extends Application {
                 tabEtu.setVisible(true);
                 formulaire.setVisible(false);
                 reste.getChildren().add(tabEtu);
+                System.out.println(tabEtu);
             }
         });
         
@@ -140,6 +142,10 @@ public class Mini_projet_IHM extends Application {
      public ObservableList<Etudiant> getEtu(){
         return data;
     }
+//     
+//     public void setVisiTabEtu(){
+//         reste.getChildren().add(tabEtu);
+//     }
 }
 
    

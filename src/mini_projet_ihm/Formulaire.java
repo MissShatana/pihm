@@ -17,6 +17,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -130,8 +131,8 @@ public class Formulaire extends Parent{
         this.getChildren().add(gridPane);
     }   
     
-    public Formulaire(Etudiant Etu,Mini_projet_IHM myIhm){
-        ihm=myIhm;
+    public Formulaire(Etudiant Etu, TableView<Etudiant> table){
+        
 
         // Instantiate a new Grid Pane
         gridPane = new GridPane();
@@ -217,7 +218,7 @@ public class Formulaire extends Parent{
         modifButton.setPrefHeight(40);
         modifButton.setDefaultButton(true);
         modifButton.setPrefWidth(100);
-        EcouteurModif e = new EcouteurModif(this,ihm,Etu);
+        EcouteurModif e = new EcouteurModif(this,table,Etu);
         modifButton.setOnAction(e);
 
         gridPane.add(modifButton, 1, 5, 2, 1);

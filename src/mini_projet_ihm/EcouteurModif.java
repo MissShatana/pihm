@@ -5,6 +5,7 @@
  */
 package mini_projet_ihm;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -13,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Window;
 
 import javafx.scene.Parent;
+import javafx.scene.control.TableView;
 
 /**
  *
@@ -21,13 +23,13 @@ import javafx.scene.Parent;
 public class EcouteurModif implements EventHandler {
     private ArrayList<Etudiant> listEtu = new ArrayList<Etudiant>();
     private Formulaire form;
-    private Mini_projet_IHM ihm;
+    private TableView<Etudiant> tab;
     private Etudiant Etu;
     
-    public EcouteurModif(Formulaire myForm, Mini_projet_IHM myIhm, Etudiant myEtu)
+    public EcouteurModif(Formulaire myForm, TableView<Etudiant> table, Etudiant myEtu)
     {
         form=myForm;
-        ihm=myIhm;
+        tab=table;
         Etu = myEtu;
     }
     
@@ -68,7 +70,9 @@ public class EcouteurModif implements EventHandler {
         Etu.setPrenom(form.getPrenom());
         Etu.setNom(form.getName());
         Etu.setPromo(form.getPromo());
-        
+        Etu.setNaissance(form.getNaissance());
+        tab.setVisible(true);
+        tab.refresh();
 //        System.out.println(listEtu);
 //        System.out.println(ihm.getEtu().size());
         

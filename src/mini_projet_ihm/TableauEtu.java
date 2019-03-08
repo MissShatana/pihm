@@ -31,12 +31,12 @@ public class TableauEtu extends Parent{
     private final TableView<Etudiant> table = new TableView<>();
     private ObservableList<Etudiant> data =
             FXCollections.observableArrayList();
-    private Formulaire formModif;
-    private ButtonCell cellButton;
+    private Mini_projet_IHM ihm;
     private BorderPane bp = new BorderPane();
     
-    public TableauEtu(ObservableList<Etudiant> myData, Formulaire myDormModif){
+    public TableauEtu(ObservableList<Etudiant> myData, Formulaire myDormModif, Mini_projet_IHM myIhm){
         data=myData;
+        ihm=myIhm;
         TableColumn<Etudiant, String> firstNameCol = new TableColumn<>("Nom");
         firstNameCol.setMinWidth(100);
         firstNameCol.setCellValueFactory(new PropertyValueFactory<>("Nom"));
@@ -55,38 +55,7 @@ public class TableauEtu extends Parent{
         fourthNameCol.setCellValueFactory(new PropertyValueFactory<>("Promo"));
         
         table.getColumns().addAll(firstNameCol, secondNameCol, thirdNameCol, fourthNameCol);
-        
-//        //Insert Button
-//        TableColumn col_action = new TableColumn<>("Action");
-//        table.getColumns().add(col_action);
-//       
-//        col_action.setCellFactory(
-//                new Callback<TableColumn<Etudiant, Boolean>, TableCell<Etudiant, Boolean>>() {
-//
-//            @Override
-//            public TableCell<Etudiant, Boolean> call(TableColumn<Etudiant, Boolean> p) {
-//                cellButton = new ButtonCell();
-//                
-//                cellButton.setOnMousePressed(new EventHandler<MouseEvent>(){
-//                public void handle(MouseEvent me){
-//                    Etudiant data = getTableView().getItems().get(getIndex);
-//            }
-//            });
-//                
-//            public void updateItem(String item, boolean empty) {
-//                super.updateItem(item, empty);
-//                if(!empty){
-//                    setGraphic(cellButton);
-//                }
-//            }
-//            }
-//        });
-        
-        
-                
-        
-        
-        
+
         //table.setItems(data);
         table.getItems().addAll(data);
         
@@ -94,7 +63,7 @@ public class TableauEtu extends Parent{
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
         
-        addModifToTable(this, bp);
+        addModifToTable(this, bp, ihm, table);
         addButtonToTable();
         
         
@@ -180,13 +149,9 @@ public class TableauEtu extends Parent{
         table.getColumns().add(sixthNameCol);
 
     }
-    private void addModifToTable(TableauEtu tabEtu, BorderPane bp) {
+    private void addModifToTable(TableauEtu tabEtu, BorderPane bp, Mini_projet_IHM myIhm, TableView<Etudiant> table) {
         TableauEtu tabEtus = tabEtu;
-        TableColumn<Etudiant, String> fifthNameCol = new TableColumn("Supprimer");
-        final Image image = new Image(TableauEtu.class.getResourceAsStream("quitter.jpg"));
-        final ImageView poubelle = new ImageView(image);
-        poubelle.setFitWidth(30);
-        poubelle.setFitHeight(30);
+        TableColumn<Etudiant, String> fifthNameCol = new TableColumn("Modifier");
         
 
         Callback<TableColumn<Etudiant, String>, TableCell<Etudiant, String>> cellFactory;
@@ -200,10 +165,12 @@ public class TableauEtu extends Parent{
                             public void handle(MouseEvent me){
                                 Etudiant currentEtu = (Etudiant) getTableView().getItems().get(getIndex());
                                 tabEtus.getChildren().clear();
-                                Formulaire formulaire = new Formulaire(currentEtu);
+                                Formulaire formulaire = new Formulaire(currentEtu, table);
                                 data.remove(currentEtu);
                                 tabEtu.getChildren().clear();
                                 tabEtu.getChildren().add(formulaire);
+                                table.setVisible(false);
+                                tabEtu.getChildren().add(table);
 //                
                             }
                         });
