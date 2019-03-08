@@ -1,30 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mini_projet_ihm;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
-
-import javafx.scene.Parent;
 import javafx.scene.control.TableView;
 
 /**
- *
- * @author Natashaa
+ * This class listens the form that modifies a student
+ * @author Natasha Germain
  */
 public class EcouteurModif implements EventHandler {
-    private ArrayList<Etudiant> listEtu = new ArrayList<Etudiant>();
-    private Formulaire form;
-    private TableView<Etudiant> tab;
-    private Etudiant Etu;
+    private final Formulaire form;
+    private final TableView<Etudiant> tab;
+    private final Etudiant Etu;
     
     public EcouteurModif(Formulaire myForm, TableView<Etudiant> table, Etudiant myEtu)
     {
@@ -33,7 +24,13 @@ public class EcouteurModif implements EventHandler {
         Etu = myEtu;
     }
     
-
+    /**
+     * This method show a message depending of how the form is complete
+     * @param alertType
+     * @param owner
+     * @param title
+     * @param message 
+     */
     private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
     Alert alert = new Alert(alertType);
     alert.setTitle(title);
@@ -42,42 +39,44 @@ public class EcouteurModif implements EventHandler {
     alert.initOwner(owner);
     alert.show();
     }
-
+    
+    /**
+     * This class allow the button to modify the student to the table
+     * @param event 
+     */
     @Override
     public void handle(Event event) {
         if(form.getName().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please enter your name");
+            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Erreur!", "Entrez un nom");
             return;
         }
         if(form.getPrenom().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please enter your prenom");
+            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Erreur!", "Entrez un prénom");
             return;
         }
         if(form.getNaissance()==null) {
-            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please enter a naissance");
+            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Erreur!", "Entrez une naissance");
             return;
         }
         if(form.getPromo()==null) {
-            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Form Error!", "Please enter a promo");
+            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Erreur!", "Entrez une promo");
             return;
         }
+        if(form.getNaissance().isBefore(LocalDate.now())==false) {
+            showAlert(Alert.AlertType.ERROR, form.getPane().getScene().getWindow(), "Erreur !","S'il vous plait entrer une date avant aujourd'hui");
+            return;
+        }
+        showAlert(Alert.AlertType.CONFIRMATION, form.getPane().getScene().getWindow(), "Modification Validée", "L'étudiant suivant a été modifié " + form.getName() + form.getPrenom());
 
         form.setVisible(false);
-        //ajouter etu à la liste
-//        ihm.getEtu().add(etu);
-//        listEtu.add(etu);
-        
         Etu.setPrenom(form.getPrenom());
         Etu.setNom(form.getName());
         Etu.setPromo(form.getPromo());
         Etu.setNaissance(form.getNaissance());
         tab.setVisible(true);
         tab.refresh();
-//        System.out.println(listEtu);
-//        System.out.println(ihm.getEtu().size());
         
-        showAlert(Alert.AlertType.CONFIRMATION, form.getPane().getScene().getWindow(), "Registration Successful!", "Welcome " + form.getName());
-
+        
     }
     
 }
